@@ -11,6 +11,7 @@ import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { NativeRouter, Route, Routes } from 'react-router-native';
 import LoginScreen from './domain/Login/LoginScreen';
+import AccountsScreen from './domain/Accounts/AccountsScreen';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -29,7 +30,8 @@ function App(): JSX.Element {
 
         <Routes>
           <Route path="/login" element={<LoginScreen />} />
-          <Route path="/" element={<LoginScreen />} />
+          <Route path="/accounts" element={<AccountsScreen />} />
+          <Route path="/" element={<AccountsScreen />} />
         </Routes>
       </SafeAreaView>
     </NativeRouter>
