@@ -1,3 +1,5 @@
+import { LOGIN_API_ROUTE } from '../Routes/api';
+
 type LoginArgs = {
   email: string;
   password: string;
@@ -32,7 +34,7 @@ export async function login({
   email,
   password,
 }: LoginArgs): Promise<LoginReturn> {
-  const response = await fetch('https://tufuturoenorden.com/api/v1/token', {
+  const response = await fetch(LOGIN_API_ROUTE, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -46,8 +48,6 @@ export async function login({
 
   const body = await response.json();
 
-  console.log('Response.ok: ', response.ok);
-  console.log('body: ', body);
   if (response.ok) {
     return body;
   }

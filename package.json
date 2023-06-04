@@ -13,6 +13,7 @@
     "@react-native-async-storage/async-storage": "^1.18.1",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-reanimated-table": "^0.0.2",
     "react-router-native": "^6.11.2"
   },
   "devDependencies": {
