@@ -28,9 +28,18 @@ async function getData<T>(key: string): Promise<T> {
   }
 }
 
+async function removeData(key: string) {
+  try {
+    await AsyncStorage.removeItem(`${BASE_KEY_PREFIX}${key}`);
+  } catch (e) {
+    throw new Error('Error while removing data. Try again.');
+  }
+}
+
 const Storage = {
   getData,
   storeData,
+  removeData,
 };
 
 export default Storage;
