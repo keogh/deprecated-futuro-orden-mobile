@@ -1,21 +1,19 @@
 import React from 'react';
-import { Button, ScrollView, Text } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { useCurrentUser } from '../Session/hooks/useCurrentUser';
 import Storage from '../../utils/storage';
 import { CURRENT_USER_STORAGE_KEY } from '../Session/contants';
 import { useNavigate } from 'react-router-native';
 import { ROOT_ROUTE } from '../../utils/routes';
 import { Account, fetchAccounts } from './accountsModel';
-import { Table, Row } from 'react-native-reanimated-table';
-
-const TABLE_HEADERS = ['ID', 'NAME', 'Total', 'Actions'];
+import AccountsList from './AccountsList';
 
 export default function AccountsScreen() {
   const { currentUser } = useCurrentUser(true);
   const navigate = useNavigate();
 
   const [accounts, setAccounts] = React.useState<Account[]>([]);
-  const [error, setError ] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -49,18 +47,14 @@ export default function AccountsScreen() {
   }
 
   return (
-    <ScrollView>
-      <Text>Accounts</Text>
-      <Table>
-        <Row data={TABLE_HEADERS} />
-        {accounts.map(account => {
-          const formattedData = [account.id, account.name, account.balance];
-          return <Row key={`account-${account.id}`} data={formattedData} />;
-        })}
-      </Table>
+    <View>
+      <View>
+        <Text>Accounts</Text>
+      </View>
+      <AccountsList accounts={accounts} />
 
       {/* TODO: Remove Temporary logout button soon */}
       <Button title="Clear Token" onPress={handleClick} />
-    </ScrollView>
+    </View>
   );
 }
