@@ -16,16 +16,20 @@ import AccountsScreen from './domain/Accounts/AccountsScreen';
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const safeAreaStyles = React.useMemo(
+    () => ({
+      flex: 1,
+      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    }),
+    [isDarkMode],
+  );
 
   return (
     <NativeRouter>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeAreaStyles}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
+          backgroundColor={safeAreaStyles.backgroundColor}
         />
 
         <Routes>

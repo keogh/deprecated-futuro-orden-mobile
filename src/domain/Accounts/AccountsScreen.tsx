@@ -47,10 +47,10 @@ export default function AccountsScreen() {
   }
 
   return (
-    <View>
-      <View>
-        <Text>Accounts</Text>
-      </View>
+    <View style={{ flex: 1 }}>
+      <Text>Accounts</Text>
+
+
       <AccountsList accounts={accounts} />
 
       {/* TODO: Remove Temporary logout button soon */}
