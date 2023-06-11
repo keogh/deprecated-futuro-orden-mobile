@@ -25,7 +25,7 @@ export default function Navigator() {
   }
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: !isSignedIn }}>
       {isSignedIn ? (
         <Stack.Screen name={APP} component={AppNavigator} />
       ) : (

@@ -5,13 +5,26 @@ import type {
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
-export type RootStackParamsList = {
-  App: NavigatorScreenParams<AppTabParamList>;
+export type RootGuestStackParamsList = {
   Login: undefined;
 };
 
-export type RootStackScreenProps<T extends keyof RootStackParamsList> =
-  NativeStackScreenProps<RootStackParamsList, T>;
+export type RootSignedInStackParamsList = {
+  App: NavigatorScreenParams<AppTabParamList>;
+};
+
+export type RootStackParamsList = {
+  Login?: undefined;
+  App?: NavigatorScreenParams<AppTabParamList>;
+};
+
+export type RootGuestStackScreenProps<
+  T extends keyof RootGuestStackParamsList,
+> = NativeStackScreenProps<RootGuestStackParamsList, T>;
+
+export type RootSignInStackScreenProps<
+  T extends keyof RootSignedInStackParamsList,
+> = NativeStackScreenProps<RootSignedInStackParamsList, T>;
 
 export type AppTabParamList = {
   Dashboard: undefined;
@@ -21,5 +34,5 @@ export type AppTabParamList = {
 export type AppTabScreenProps<T extends keyof AppTabParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<AppTabParamList, T>,
-    RootStackScreenProps<keyof RootStackParamsList>
+    RootSignInStackScreenProps<keyof RootSignedInStackParamsList>
   >;
