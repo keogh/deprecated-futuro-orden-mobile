@@ -2,19 +2,18 @@ import React from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 import { login } from './loginModel';
 import Storage from '../../utils/storage';
-import { useNavigate } from 'react-router-native';
 import { CURRENT_USER_STORAGE_KEY } from '../Session/contants';
-import { ACCOUNTS_ROUTE } from '../../utils/routes';
 import { CurrentUser } from '../Session/types';
+import { RootStackScreenProps } from '../Navigator/types';
 
-export default function LoginScreen() {
+export default function LoginScreen({
+  navigation,
+}: RootStackScreenProps<'Login'>) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
-
-  const navigate = useNavigate();
 
   const handlePress = React.useCallback(async () => {
     try {
@@ -33,7 +32,9 @@ export default function LoginScreen() {
       };
       await Storage.storeData(CURRENT_USER_STORAGE_KEY, currentUser);
 
-      navigate(ACCOUNTS_ROUTE);
+      // navigation.navigate('App', {
+      //   screen: 'Accounts',
+      // });
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -41,7 +42,7 @@ export default function LoginScreen() {
     } finally {
       setLoading(false);
     }
-  }, [email, password, navigate]);
+  }, [email, password]);
 
   return (
     <View>

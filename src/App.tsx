@@ -6,12 +6,11 @@
  */
 
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
-
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { NativeRouter, Route, Routes } from 'react-router-native';
-import LoginScreen from './domain/Login/LoginScreen';
-import AccountsScreen from './domain/Accounts/AccountsScreen';
+import Navigator from './domain/Navigator/Navigator';
+import { useCurrentUser } from './domain/Session/hooks/useCurrentUser';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -25,20 +24,16 @@ function App(): JSX.Element {
   );
 
   return (
-    <NativeRouter>
-      <SafeAreaView style={safeAreaStyles}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={safeAreaStyles.backgroundColor}
-        />
+    <SafeAreaView style={safeAreaStyles}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={safeAreaStyles.backgroundColor}
+      />
 
-        <Routes>
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/accounts" element={<AccountsScreen />} />
-          <Route path="/" element={<AccountsScreen />} />
-        </Routes>
-      </SafeAreaView>
-    </NativeRouter>
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 

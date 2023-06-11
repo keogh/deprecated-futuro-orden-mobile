@@ -13,7 +13,7 @@ export default function AccountsList({ accounts }: Props) {
       renderItem={({ item }) => {
         return (
           <TouchableOpacity>
-            <ListItem>
+            <ListItem bottomDivider>
               <ListItem.Content>
                 <ListItem.Title>{item.name}</ListItem.Title>
               </ListItem.Content>
