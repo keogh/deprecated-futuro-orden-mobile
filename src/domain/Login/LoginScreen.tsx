@@ -4,11 +4,8 @@ import { login } from './loginModel';
 import Storage from '../../utils/storage';
 import { CURRENT_USER_STORAGE_KEY } from '../Session/contants';
 import { CurrentUser } from '../Session/types';
-import { RootStackScreenProps } from '../Navigator/types';
 
-export default function LoginScreen({
-  navigation,
-}: RootStackScreenProps<'Login'>) {
+export default function LoginScreen() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
