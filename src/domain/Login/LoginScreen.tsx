@@ -4,6 +4,7 @@ import { login } from './loginModel';
 import Storage from '../../utils/storage';
 import { CURRENT_USER_STORAGE_KEY } from '../Session/contants';
 import { CurrentUser } from '../Session/types';
+import { AuthContext } from '../Auth/AuthProvider';
 
 export default function LoginScreen() {
   const [email, setEmail] = React.useState('');
@@ -11,6 +12,8 @@ export default function LoginScreen() {
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+
+  const { signIn } = React.useContext(AuthContext);
 
   const handlePress = React.useCallback(async () => {
     try {
@@ -27,11 +30,9 @@ export default function LoginScreen() {
         email: response.user.email,
         token: response.token,
       };
-      await Storage.storeData(CURRENT_USER_STORAGE_KEY, currentUser);
 
-      // navigation.navigate('App', {
-      //   screen: 'Accounts',
-      // });
+      await Storage.storeData(CURRENT_USER_STORAGE_KEY, currentUser);
+      await signIn({ userToken: currentUser.token });
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -39,7 +40,7 @@ export default function LoginScreen() {
     } finally {
       setLoading(false);
     }
-  }, [email, password]);
+  }, [email, password, signIn]);
 
   return (
     <View>
