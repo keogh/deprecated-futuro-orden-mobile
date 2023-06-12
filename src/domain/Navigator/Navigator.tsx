@@ -5,9 +5,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../Login/LoginScreen';
 import AccountsScreen from '../Accounts/AccountsScreen';
 import { AppTabParamList, RootStackParamsList } from './types';
-import { ACCOUNTS, APP, DASHBOARD, LOGIN } from './contants';
+import { ACCOUNTS, APP, DASHBOARD, LOGIN, LOGOUT } from './contants';
 import DashboardScreen from '../Dashboard/DashboardScreen';
 import { AuthContext } from '../Auth/AuthProvider';
+import LogoutScreen from '../Auth/LogoutScreen';
 
 const Tab = createBottomTabNavigator<AppTabParamList>();
 const Stack = createNativeStackNavigator<RootStackParamsList>();
@@ -32,6 +33,7 @@ function AppNavigator() {
     <Tab.Navigator initialRouteName={DASHBOARD}>
       <Tab.Screen name={DASHBOARD} component={DashboardScreen} />
       <Tab.Screen name={ACCOUNTS} component={AccountsScreen} />
+      <Tab.Screen name={LOGOUT} component={LogoutScreen} />
     </Tab.Navigator>
   );
 }

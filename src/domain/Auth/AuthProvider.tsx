@@ -19,12 +19,13 @@ type UserToken = string | null;
 
 type Action = {
   type: ActionKind;
-  payload: UserToken;
+  payload?: UserToken;
 };
 
 type ContextType = {
   userToken: UserToken;
   signIn: ({ userToken }: SignInArgs) => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 type SignInArgs = {
@@ -38,6 +39,7 @@ type Props = {
 const DEFAULT_CONTEXT_VALUE: ContextType = {
   userToken: null,
   signIn: async () => {},
+  signOut: async () => {},
 };
 
 export const AuthContext = React.createContext<ContextType>(
@@ -51,14 +53,14 @@ export default function AuthProvider({ children }: Props) {
         case 'RESTORE_TOKEN':
           return {
             ...prevState,
-            userToken: action.payload,
+            userToken: action.payload ?? null,
             isLoading: false,
           };
         case 'SIGN_IN':
           return {
             ...prevState,
             isSignout: false,
-            userToken: action.payload,
+            userToken: action.payload ?? null,
           };
         case 'SIGN_OUT':
           return {
@@ -107,10 +109,16 @@ export default function AuthProvider({ children }: Props) {
   const contextValue: ContextType = React.useMemo(() => {
     return {
       signIn: async ({ userToken }: { userToken: UserToken }) => {
+        // TODO: Add Token to storage from LoginScreen.tsx:34
         dispatch({
           type: ActionKind.SignIn,
           payload: userToken,
         });
+      },
+      signOut: async () => {
+        // TODO: Handle error
+        await Storage.removeData(CURRENT_USER_STORAGE_KEY);
+        dispatch({ type: ActionKind.SignOut });
       },
       userToken: state.userToken,
     };

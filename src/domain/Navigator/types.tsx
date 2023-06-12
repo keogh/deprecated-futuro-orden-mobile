@@ -29,6 +29,7 @@ export type RootSignInStackScreenProps<
 export type AppTabParamList = {
   Dashboard: undefined;
   Accounts: undefined;
+  Logout: undefined;
 };
 
 export type AppTabScreenProps<T extends keyof AppTabParamList> =
