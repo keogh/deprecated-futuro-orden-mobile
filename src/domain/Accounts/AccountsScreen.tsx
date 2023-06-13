@@ -1,9 +1,13 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Account, fetchAccounts } from './accountsModel';
-import AccountsList from './AccountsList';
+import AccountsListItem from './AccountsListItem';
+import { ACCOUNT_DETAILS, ACCOUNTS_STACK, APP } from '../Navigator/contants';
+import { AppTabScreenProps } from '../Navigator/types';
 
-export default function AccountsScreen() {
+export default function AccountsScreen({
+  navigation,
+}: AppTabScreenProps<'AccountsStack'>) {
   const [accounts, setAccounts] = React.useState<Account[]>([]);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -21,13 +25,27 @@ export default function AccountsScreen() {
     fetchData();
   }, []);
 
+  const handlePressItem = React.useCallback(() => {
+    navigation.navigate(APP, {
+      screen: ACCOUNTS_STACK,
+      params: {
+        screen: ACCOUNT_DETAILS,
+      },
+    });
+  }, [navigation]);
+
   if (error) {
     return <Text>{error}</Text>;
   }
 
   return (
     <View style={{ flex: 1 }}>
-      <AccountsList accounts={accounts} />
+      <FlatList
+        data={accounts}
+        renderItem={({ item }) => (
+          <AccountsListItem item={item} onPress={handlePressItem} />
+        )}
+      />
     </View>
   );
 }

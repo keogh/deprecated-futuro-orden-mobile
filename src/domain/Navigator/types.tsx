@@ -28,7 +28,7 @@ export type RootSignInStackScreenProps<
 
 export type AppTabParamList = {
   Dashboard: undefined;
-  Accounts: undefined;
+  AccountsStack: NavigatorScreenParams<AccountsStackParamList>;
   Logout: undefined;
 };
 
@@ -37,3 +37,8 @@ export type AppTabScreenProps<T extends keyof AppTabParamList> =
     BottomTabScreenProps<AppTabParamList, T>,
     RootSignInStackScreenProps<keyof RootSignedInStackParamsList>
   >;
+
+export type AccountsStackParamList = {
+  Accounts: undefined;
+  AccountDetails: undefined;
+};
