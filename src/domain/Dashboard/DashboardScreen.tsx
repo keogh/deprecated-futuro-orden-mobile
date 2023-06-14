@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { VictoryContainer, VictoryPie, VictoryTheme, VictoryTooltip } from 'victory-native';
 import { fetchAccounts } from '../Accounts/accountsModel';
 import { Dashboard, fetchDashboard } from './dashboardModel';
+import { moneyFormat } from '../../utils/money';
 
 export default function DashboardScreen() {
   // const data = [
@@ -52,7 +53,9 @@ export default function DashboardScreen() {
 
       <VictoryPie
         data={chartData}
-        labels={({ datum }) => `${datum.x}\n${datum.balance}`}
+        labels={({ datum }) =>
+          `${datum.x}\n${moneyFormat(datum.balance / 100)}`
+        }
         labelComponent={<VictoryTooltip renderInPortal={false} />}
         theme={VictoryTheme.material}
       />

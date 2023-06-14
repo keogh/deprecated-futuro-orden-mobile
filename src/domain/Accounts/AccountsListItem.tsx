@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ListItem } from '@rneui/themed';
 import { Text, TouchableOpacity } from 'react-native';
 import { Account } from './accountsModel';
+import { moneyFormat } from '../../utils/money';
 
 type Props = {
   item: Account;
@@ -20,12 +21,7 @@ export default function AccountsListItem({ item, onPress }: Props) {
           <ListItem.Title>{item.name}</ListItem.Title>
         </ListItem.Content>
         <ListItem.Content right>
-          <Text>
-            {new Intl.NumberFormat('es-MX', {
-              style: 'currency',
-              currency: 'MXN',
-            }).format(item.balance / 100)}
-          </Text>
+          <Text>{moneyFormat(item.balance / 100)}</Text>
         </ListItem.Content>
       </ListItem>
     </TouchableOpacity>
