@@ -29,6 +29,11 @@ export default function Navigator() {
   );
 }
 
+const ACCOUNTS_STACK_SCREEN_OPTIONS = {
+  headerShown: false,
+  tabBarLabel: 'Accounts',
+};
+
 function AppNavigator() {
   return (
     <Tab.Navigator initialRouteName={DASHBOARD}>
@@ -36,7 +41,7 @@ function AppNavigator() {
       <Tab.Screen
         name={ACCOUNTS_STACK}
         component={AccountsStack}
-        options={{ headerShown: false }}
+        options={ACCOUNTS_STACK_SCREEN_OPTIONS}
       />
       <Tab.Screen name={LOGOUT} component={LogoutScreen} />
     </Tab.Navigator>
