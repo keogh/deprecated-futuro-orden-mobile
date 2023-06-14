@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { VictoryPie, VictoryTheme, VictoryTooltip } from 'victory-native';
+import { VictoryContainer, VictoryPie, VictoryTheme, VictoryTooltip } from 'victory-native';
 import { fetchAccounts } from '../Accounts/accountsModel';
 import { Dashboard, fetchDashboard } from './dashboardModel';
 
@@ -53,7 +53,7 @@ export default function DashboardScreen() {
       <VictoryPie
         data={chartData}
         labels={({ datum }) => `${datum.x}\n${datum.balance}`}
-        labelComponent={<VictoryTooltip />}
+        labelComponent={<VictoryTooltip renderInPortal={false} />}
         theme={VictoryTheme.material}
       />
     </View>
