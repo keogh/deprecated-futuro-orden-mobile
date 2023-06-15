@@ -4,8 +4,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from '../Login/LoginScreen';
 import AccountsScreen from '../Accounts/AccountsScreen';
-import { AppTabParamList, RootStackParamsList } from './types';
-import { ACCOUNT_DETAILS, ACCOUNTS, ACCOUNTS_STACK, APP, DASHBOARD, LOGIN, LOGOUT } from './contants';
+import { AccountsStackParamList, AppTabParamList, RootStackParamsList } from './types';
+import {
+  ACCOUNT_DETAILS,
+  ACCOUNTS,
+  ACCOUNTS_STACK,
+  APP,
+  DASHBOARD,
+  LOGIN,
+  LOGOUT,
+} from './contants';
 import DashboardScreen from '../Dashboard/DashboardScreen';
 import { AuthContext } from '../Auth/AuthProvider';
 import LogoutScreen from '../Auth/LogoutScreen';
@@ -13,6 +21,7 @@ import AccountDetailsScreen from '../Accounts/AccountDetailsScreen';
 
 const Tab = createBottomTabNavigator<AppTabParamList>();
 const Stack = createNativeStackNavigator<RootStackParamsList>();
+const AStack = createNativeStackNavigator<AccountsStackParamList>();
 
 export default function Navigator() {
   const { userToken } = React.useContext(AuthContext);
@@ -50,12 +59,12 @@ function AppNavigator() {
 
 function AccountsStack() {
   return (
-    <Stack.Navigator>
+    <AStack.Navigator>
       {/* TODO: Fix types and remove @ts-ignore */}
       {/* @ts-ignore */}
-      <Stack.Screen name={ACCOUNTS} component={AccountsScreen} />
+      <AStack.Screen name={ACCOUNTS} component={AccountsScreen} />
       {/* @ts-ignore */}
-      <Stack.Screen name={ACCOUNT_DETAILS} component={AccountDetailsScreen} />
-    </Stack.Navigator>
+      <AStack.Screen name={ACCOUNT_DETAILS} component={AccountDetailsScreen} />
+    </AStack.Navigator>
   );
 }

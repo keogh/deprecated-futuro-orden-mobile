@@ -6,13 +6,13 @@ import { moneyFormat } from '../../utils/money';
 
 type Props = {
   item: Account;
-  onPress: () => void;
+  onPress: (accountId: Account['id']) => void;
 };
 
 export default function AccountsListItem({ item, onPress }: Props) {
   const handlePress = React.useCallback(() => {
-    onPress();
-  }, [onPress]);
+    onPress(item.id);
+  }, [onPress, item]);
 
   return (
     <TouchableOpacity onPress={handlePress}>

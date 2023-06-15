@@ -25,14 +25,20 @@ export default function AccountsScreen({
     fetchData();
   }, []);
 
-  const handlePressItem = React.useCallback(() => {
-    navigation.navigate(APP, {
-      screen: ACCOUNTS_STACK,
-      params: {
-        screen: ACCOUNT_DETAILS,
-      },
-    });
-  }, [navigation]);
+  const handlePressItem = React.useCallback(
+    (accountId: Account['id']) => {
+      navigation.navigate(APP, {
+        screen: ACCOUNTS_STACK,
+        params: {
+          screen: ACCOUNT_DETAILS,
+          params: {
+            accountId: accountId,
+          },
+        },
+      });
+    },
+    [navigation],
+  );
 
   if (error) {
     return <Text>{error}</Text>;

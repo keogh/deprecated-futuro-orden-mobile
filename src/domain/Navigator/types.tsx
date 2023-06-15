@@ -40,5 +40,8 @@ export type AppTabScreenProps<T extends keyof AppTabParamList> =
 
 export type AccountsStackParamList = {
   Accounts: undefined;
-  AccountDetails: undefined;
+  AccountDetails: { accountId: number | string };
 };
+
+export type AccountsStackScreenProps<T extends keyof AccountsStackParamList> =
+  NativeStackScreenProps<AccountsStackParamList, T>;
