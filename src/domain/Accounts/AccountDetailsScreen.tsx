@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { View } from 'react-native';
-import { Text } from '@rneui/themed';
+import { StyleSheet, View } from 'react-native';
+import { Card, Text } from '@rneui/themed';
 import { AccountsStackScreenProps } from '../Navigator/types';
 import { Account, fetchAccountDetails } from './accountsModel';
+import { moneyFormat } from '../../utils/money';
 
 export default function AccountDetailsScreen({
   route,
@@ -46,9 +47,20 @@ export default function AccountDetailsScreen({
   return (
     <View>
       <View>
-        <Text h4>{account.name}</Text>
+        <Card>
+          <Text h1 style={styles.cardTitle}>
+            {account.name}
+          </Text>
+          <Text h3>{moneyFormat(account.balance / 100)}</Text>
+        </Card>
       </View>
       <View></View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  cardTitle: {
+    paddingBottom: 16,
+  },
+});
