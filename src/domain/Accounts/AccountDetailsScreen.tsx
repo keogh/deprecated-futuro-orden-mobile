@@ -2,14 +2,16 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Card, Text } from '@rneui/themed';
 import { AccountsStackScreenProps } from '../Navigator/types';
-import { Account, fetchAccountDetails } from './accountsModel';
+import { fetchAccountDetails } from './accountsModel';
 import { moneyFormat } from '../../utils/money';
+import BalanceHistoryChart from './BalanceHistoryChart';
+import { AccountDetails } from './types';
 
 export default function AccountDetailsScreen({
   route,
 }: AccountsStackScreenProps<'AccountDetails'>) {
   const { accountId } = route.params;
-  const [account, setAccount] = React.useState<Account | null>(null);
+  const [account, setAccount] = React.useState<AccountDetails | null>(null);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -54,7 +56,8 @@ export default function AccountDetailsScreen({
           <Text h3>{moneyFormat(account.balance / 100)}</Text>
         </Card>
       </View>
-      <View></View>
+
+      <BalanceHistoryChart balances={account.historical} />
     </View>
   );
 }

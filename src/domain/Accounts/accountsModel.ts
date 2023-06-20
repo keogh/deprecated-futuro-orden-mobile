@@ -3,14 +3,7 @@ import { CurrentUser } from '../Session/types';
 import { CURRENT_USER_STORAGE_KEY } from '../Session/contants';
 import { ACCOUNTS_API_ROUTE } from '../Routes/api';
 import * as ErrorCodes from '../Errors/errorCodes';
-
-export type Account = {
-  id: number | string;
-  name: string;
-  balance: number;
-  createdAt: string;
-  userId: number;
-};
+import { Account, AccountDetails } from './types';
 
 export async function fetchAccounts(): Promise<Account[]> {
   const currentUser = await Storage.getData<CurrentUser>(
@@ -35,7 +28,7 @@ export async function fetchAccounts(): Promise<Account[]> {
 
 export async function fetchAccountDetails(
   accountId: Account['id'],
-): Promise<Account> {
+): Promise<AccountDetails> {
   const currentUser = await Storage.getData<CurrentUser>(
     CURRENT_USER_STORAGE_KEY,
   );
