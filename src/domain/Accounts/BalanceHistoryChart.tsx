@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { Text } from '@rneui/themed';
 import {
   VictoryAxis,
   VictoryChart,
+  VictoryLabel,
   VictoryLine,
-  VictoryTheme,
-  VictoryZoomContainer,
 } from 'victory-native';
 import { addDays, format } from 'date-fns';
 import type { ChartData, ChartItem } from './types';
@@ -46,7 +44,7 @@ export default function BalanceHistoryChart({ balances }: Props) {
       tickValues.push(itemDate.toString());
 
       if (i === 0) {
-        zoomDomain.x = [timestamp, addDays(new Date(timestamp), 7).getTime()];
+        zoomDomain.x = [timestamp, addDays(new Date(timestamp), 28).getTime()];
       }
     });
 
@@ -58,26 +56,27 @@ export default function BalanceHistoryChart({ balances }: Props) {
   }, [balances]);
 
   return (
-    <View>
-      <View>
-        <Text>{balances.length}</Text>
-      </View>
-      <View>
+    <View style={{ marginTop: 8 }}>
+      <View style={{ backgroundColor: 'white' }}>
         <VictoryChart
-          theme={VictoryTheme.material}
-          containerComponent={
-            <VictoryZoomContainer zoomDomain={chartData.zoomDomain} />
-          }
+          height={140}
+          padding={{ left: 8, right: 8, top: 20, bottom: 40 }}
         >
           <VictoryLine data={chartData.data} />
+          <VictoryAxis tickFormat={t => format(new Date(t), 'd/M/yy')} />
           <VictoryAxis
-            // tickLabelComponent={<VictoryLabel angle={-45} textAnchor="end" />}
-            tickFormat={t => format(new Date(t), 'd/M/yy')}
-            // tickValues={chartData.tickValues}
+            dependentAxis
+            tickFormat={t => {
+              if (t > 1000) {
+                return `${Math.round(t / 1000)}k`;
+              }
+              return t;
+            }}
+            tickLabelComponent={<VictoryLabel dx={40} />}
+            tickCount={2}
           />
-          <VictoryAxis dependentAxis />
         </VictoryChart>
       </View>
     </View>
   );
-};
+}
