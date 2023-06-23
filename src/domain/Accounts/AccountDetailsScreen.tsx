@@ -6,6 +6,7 @@ import { fetchAccountDetails } from './accountsModel';
 import { moneyFormat } from '../../utils/money';
 import BalanceHistoryChart from './BalanceHistoryChart';
 import { AccountDetails } from './types';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 export default function AccountDetailsScreen({
   route,
@@ -54,6 +55,25 @@ export default function AccountDetailsScreen({
             {account.name}
           </Text>
           <Text h3>{moneyFormat(account.balance / 100)}</Text>
+
+          <View style={styles.otherDataSection}>
+            <View>
+              <Text style={styles.otherDataTitle}>Created</Text>
+              <Text style={styles.data}>
+                {`${formatDistanceToNowStrict(
+                  new Date(account.created_at),
+                )} ago`}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.otherDataTitle}>Collected</Text>
+              <Text style={styles.data}>
+                {`${formatDistanceToNowStrict(
+                  new Date(account.updated_at),
+                )} ago`}
+              </Text>
+            </View>
+          </View>
         </Card>
       </View>
 
@@ -65,5 +85,18 @@ export default function AccountDetailsScreen({
 const styles = StyleSheet.create({
   cardTitle: {
     paddingBottom: 16,
+  },
+  otherDataSection: {
+    marginTop: 18,
+    flexDirection: 'row',
+    gap: 24,
+  },
+  otherDataTitle: {
+    marginBottom: 4,
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  data: {
+    fontSize: 14,
   },
 });

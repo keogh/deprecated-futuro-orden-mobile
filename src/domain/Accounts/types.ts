@@ -25,6 +25,8 @@ export type AccountDetails = {
   balance: number;
   movements?: [];
   historical: AccountDetailsHistorical[];
+  created_at: string;
+  updated_at: string;
 };
 
 export type AccountDetailsHistorical = {
