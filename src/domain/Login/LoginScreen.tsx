@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { login } from './loginModel';
 import Storage from '../../utils/storage';
 import { CURRENT_USER_STORAGE_KEY } from '../Session/contants';
 import { CurrentUser } from '../Session/types';
 import { AuthContext } from '../Auth/AuthProvider';
+import { Input, Button, Text } from '@rneui/themed';
 
 export default function LoginScreen() {
   const [email, setEmail] = React.useState('');
@@ -43,23 +44,46 @@ export default function LoginScreen() {
   }, [email, password, signIn]);
 
   return (
-    <View>
-      <Text>Login</Text>
+    <View style={{ backgroundColor: 'white', flex: 1, paddingTop: 32 }}>
       {loading && <Text>Loading</Text>}
       {error && <Text>ERROR! {error}</Text>}
-      <TextInput
+      <Input
         onChangeText={setEmail}
         value={email}
-        placeholder="Email"
+        label="Email address"
         keyboardType="email-address"
       />
-      <TextInput
+      <Input
         onChangeText={setPassword}
         value={password}
-        placeholder="Password"
+        label="Password"
         secureTextEntry
       />
-      <Button title="Login" onPress={handlePress} />
+      <Button
+        title="Login"
+        onPress={handlePress}
+        containerStyle={styles.loginButton}
+      />
+      <View style={styles.actionsContainer}>
+        <Text style={styles.link}>Crea una cuenta</Text>
+        <Text style={styles.link}>¿Olvidaste tu password?</Text>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  loginButton: {
+    paddingHorizontal: 8,
+  },
+  actionsContainer: {
+    padding: 8,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginTop: 12,
+  },
+  link: {
+    fontSize: 16,
+    textDecorationLine: 'underline',
+  },
+});

@@ -1,9 +1,11 @@
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
-import { Account, fetchAccounts } from './accountsModel';
+import { fetchAccounts } from './accountsModel';
 import AccountsListItem from './AccountsListItem';
 import { ACCOUNT_DETAILS, ACCOUNTS_STACK, APP } from '../Navigator/contants';
-import { AppTabScreenProps } from '../Navigator/types';
+
+import type { AppTabScreenProps } from '../Navigator/types';
+import type { Account } from './types';
 
 export default function AccountsScreen({
   navigation,
