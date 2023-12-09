@@ -1,4 +1,4 @@
-# Tu Futuro en Order Mobile
+# [DEPRECATED] Tu Futuro en Order Mobile
 
 This is the mobile application for https://tufuturoenorden.com/
 
